@@ -44,7 +44,7 @@ while True:
     # Show the image
     # cv2.line(image, (x1, y1), (x2, y2), (0,255,0), lineThickness)
     for index in range(len(line) - 1):
-        cv2.line(image, (line[index][0], line[index][1]), (line[index+1][0], line[index+1][1]), (0,255,0), 2)
+        cv2.line(image, (line[index][0], line[index][1]), (line[index+1][0], line[index+1][1]), (0,0,255), 2)
     cv2.imshow("Output", image)
     
     k = cv2.waitKey(5) & 0xFF
