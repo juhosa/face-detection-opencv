@@ -29,8 +29,10 @@ while True:
         shape = predictor(gray, rect)
         shape = face_utils.shape_to_np(shape)
        
-        # Draw on our image, all the finded cordinate points (x,y) 
-        for (x, y) in shape:
+       # eye locations found from
+       # https://github.com/jrosebr1/imutils/blob/master/imutils/face_utils/helpers.py
+        eyes = shape[36:48]
+        for (x, y) in eyes:
             cv2.circle(image, (x, y), 2, (0, 255, 0), -1)
 
         print(shape)
