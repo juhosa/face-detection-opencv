@@ -18,6 +18,10 @@ line = []
 while True:
     # Getting out image by webcam 
     _, image = cap.read()
+
+    # flip the image
+    image = cv2.flip(image, 1)
+
     # Converting the image to gray scale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         
