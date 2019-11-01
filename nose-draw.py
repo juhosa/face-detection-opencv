@@ -34,7 +34,9 @@ while True:
         shape = predictor(gray, rect)
         shape = face_utils.shape_to_np(shape)
 
-        nose = shape[27:36]
+        # nose = shape[27:36]
+        nose = face_utils.helpers.FACIAL_LANDMARKS_68_IDXS['nose']
+        nose = shape[nose[0]: nose[1]]
        
         # Draw on our image, all the finded cordinate points (x,y) 
         # for (x, y) in nose:
