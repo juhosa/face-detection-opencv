@@ -11,7 +11,7 @@ p = "shape_predictor_68_face_landmarks.dat"
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(p)
 
-cap = cv2.VideoCapture(0) #Jos tietokoneessa vain yksi kamera aseta arvoksi 0. Muuten voit valita kameran 1,2,3 jne.
+cap = cv2.VideoCapture(1) #Jos tietokoneessa vain yksi kamera aseta arvoksi 0. Muuten voit valita kameran 1,2,3 jne.
 
 line = []
  

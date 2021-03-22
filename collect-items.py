@@ -1,8 +1,8 @@
 from imutils import face_utils
 import dlib
 import cv2
- 
-# let's go code an faces detector(HOG) and after detect the 
+
+# let's go code an faces detector(HOG) and after detect the
 # landmarks on this detected face
 
 # p = our pre-treined model directory, on my case, it's on the same script's diretory.
@@ -11,19 +11,20 @@ p = "shape_predictor_68_face_landmarks.dat"
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(p)
 
-cap = cv2.VideoCapture(0) #Jos tietokoneessa vain yksi kamera aseta arvoksi 0. Muuten voit valita kameran 1,2,3 jne.
+# Jos tietokoneessa vain yksi kamera aseta arvoksi 0. Muuten voit valita kameran 1,2,3 jne.
+cap = cv2.VideoCapture(0)
 
 # (x, y)
 collectables = [
-    (50, 50),
-    (100, 100),
-    (200, 300)
-    ]
+    (550, 550),
+    (1200, 400),
+    (800, 300)
+]
 
-COLLECTABLE_RADIUS = 20
- 
+COLLECTABLE_RADIUS = 30
+
 while True:
-    # Getting out image by webcam 
+    # Getting out image by webcam
     _, image = cap.read()
 
     # flip the image
@@ -31,10 +32,10 @@ while True:
 
     # Converting the image to gray scale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        
+
     # Get faces into webcam's image
     rects = detector(gray, 0)
-    
+
     # For each detected face, find the landmark.
     for (i, rect) in enumerate(rects):
         # Make the prediction and transfom it to numpy array
@@ -42,7 +43,7 @@ while True:
         shape = face_utils.shape_to_np(shape)
 
         nose = shape[27:36]
-       
+
         # this is the center point in nose
         nose_point = nose[3]
         cv2.circle(image, (nose_point[0], nose_point[1]), 5, (0, 255, 0), -1)
@@ -79,29 +80,27 @@ while True:
 
         # print(shape)
 
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    bottomLeftCornerOfText = (40, 45)
+    fontScale = 2
+    fontColor = (0, 0, 0)
+    lineType = 2
 
-    font                   = cv2.FONT_HERSHEY_SIMPLEX
-    bottomLeftCornerOfText = (10,25)
-    fontScale              = 1
-    fontColor              = (255,255,255)
-    lineType               = 2
-
-    cv2.putText(image,'Use your nose to collect the blue circles!', 
-        bottomLeftCornerOfText, 
-        font, 
-        fontScale,
-        fontColor,
-        lineType)
+    cv2.putText(image, 'Use your nose to collect the blue circles!',
+                bottomLeftCornerOfText,
+                font,
+                fontScale,
+                fontColor,
+                lineType)
 
     # draw the collectables
     for item in collectables:
-        cv2.circle(image, item, COLLECTABLE_RADIUS, (255,0,0), -1)
+        cv2.circle(image, item, COLLECTABLE_RADIUS, (255, 0, 0), -1)
 
     cv2.imshow("Output", image)
-    
+
     k = cv2.waitKey(5) & 0xFF
     if k == 27:
         break
 
 cv2.destroyAllWindows()
-
